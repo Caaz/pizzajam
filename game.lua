@@ -18,6 +18,12 @@ _ichor.add('game', {
         y = 30,
         width = 10,
         height = 80
+      },
+      class_platform{
+        x = 60,
+        y = 0,
+        width = 10,
+        height = 80
       }
     }
   end,

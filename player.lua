@@ -33,8 +33,8 @@ class_player = class{
     class_mob.update(this)
     if this.on then
       local x_change = this.on.x - this.on_x
-      this.x += x_change
-      this.vel_x += (x_change > 0 and .01 or -.01)
+      this.vel_x = x_change *1.2
+      -- this.vel_x += (x_change > 0 and .01 or -.01)
       this.on = nil
     end
     if this.on_floor then

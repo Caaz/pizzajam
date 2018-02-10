@@ -31,6 +31,12 @@ class_player = class{
   end,
   update = function(this)
     class_mob.update(this)
+    if this.on then
+      local x_change = this.on.x - this.on_x
+      this.x += x_change
+      this.vel_x += (x_change > 0 and .01 or -.01)
+      this.on = nil
+    end
     if this.on_floor then
       this.vel_x -= this.vel_x/5
       this.on_wall = false
@@ -56,7 +62,11 @@ class_player = class{
     if x then
       this.on_wall = true
       this.wall_side = vel > 0
-    elseif vel > 0 then this.on_floor = true end
+    elseif vel > 0 then
+      this.on = that
+      this.on_x = that.x
+      this.on_floor = true
+    end
   end,
   draw = function(this)
     class_mob.draw(this)

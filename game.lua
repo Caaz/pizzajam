@@ -9,9 +9,10 @@ _ichor.add('game', {
       class_player{x=100},
       class_platform{
         x = 30,
-        y = 100,
+        y = 110,
         width = 80,
-        height = 10
+        height = 10,
+        moves = true
       },
       class_platform{
         x = 30,
@@ -24,6 +25,12 @@ _ichor.add('game', {
         y = 0,
         width = 10,
         height = 80
+      },
+      class_platform{
+        x = 100,
+        y = 100,
+        width = 80,
+        height = 10
       }
     }
   end,

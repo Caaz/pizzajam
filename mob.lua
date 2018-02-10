@@ -34,7 +34,7 @@ class_mob = class{
       local a = 'y'
       local b = 'height'
       if x then a = 'x' b = 'width' end
-      this[a] = that[a] + (vel < 0 and that[b] or -this[b])
+      this[a] = that[a] + (vel <= 0 and that[b] or -this[b])
     -- else
     end
   end

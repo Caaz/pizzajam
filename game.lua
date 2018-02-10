@@ -5,36 +5,21 @@ _ichor.add('game', {
   init = function(this)
     -- called when this state begins
     -- this.player = class_player{}
+    this.tick = 0
     this.mobs = {
-      class_player{x=100},
-      class_platform{
-        x = 30,
-        y = 110,
-        width = 80,
-        height = 10,
-        moves = true
-      },
-      class_platform{
-        x = 30,
-        y = 30,
-        width = 10,
-        height = 80
-      },
-      class_platform{
-        x = 60,
-        y = 0,
-        width = 10,
-        height = 80
-      },
-      class_platform{
-        x = 100,
-        y = 100,
-        width = 80,
-        height = 10
-      }
+      class_player{x=60,y=58},
+      class_platform{ set= true },
     }
+    -- this.mobs[2]:set_side(false)
+    this.mobs[2].x = 40
+    this.mobs[2].y = 64
+    this.mobs[2].vel_x = 1
   end,
   update = function(this)
+    this.tick += 1
+    if(this.tick%20 == 0) then
+      add(this.mobs,class_platform{})
+    end
     -- called every update when this state is active
     local mobs = this.mobs
     for i, mob in pairs(mobs) do

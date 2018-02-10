@@ -33,8 +33,8 @@ class_player = class{
   update = function(this)
     class_mob.update(this)
     if this.on then
-      local x_change = this.on.x - this.on_x
-      this.vel_x = x_change *1.2
+      -- local x_change = this.on.x - this.on_x
+      this.vel_x = this.on.vel_x
       -- this.vel_x += (x_change > 0 and .01 or -.01)
     else
       this.vel_x = 0

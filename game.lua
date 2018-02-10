@@ -6,11 +6,11 @@ _ichor.add('game', {
     -- called when this state begins
     -- this.player = class_player{}
     this.mobs = {
-      class_player{x=70},
+      class_player{x=100},
       class_platform{
-        x = 64,
-        y = 64,
-        width = 40,
+        x = 30,
+        y = 100,
+        width = 80,
         height = 10
       }
     }

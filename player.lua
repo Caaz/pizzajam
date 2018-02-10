@@ -16,9 +16,7 @@ class_player = class{
     if btn(0) then this.vel_x = -2
     elseif btn(1) then this.vel_x = 2
     else this.vel_x = 0 end
-    this.vel_y = 1
-    -- if btn(2) then this.vel_y = -2
-    -- elseif btn(3) then this.vel_y = 2
-    -- else this.vel_y = 0 end
+    if btnp(2) or btnp(4) then this.vel_y = -5 end
+    this.vel_y = min(this.vel_y + .5, 5)
   end
 }

@@ -1,5 +1,7 @@
 -- require class
 -- require mob
+-- require animator
+
 local max_movement = 3
 local speed = .6
 class_player = class{
@@ -9,6 +11,21 @@ class_player = class{
       width = 8,
       height = 8,
       vel_y = 2,
+      animator = class_animator{
+        animations = {
+          class_animation{
+            speed = 4,
+            frames = {
+              {0,0,8,8},
+              {0,0,8,8},
+              {0,0,8,8},
+              {8,0,6,8,1},
+              {14,0,4,8,2},
+              {18,0,6,8,1}
+            }
+          }
+        }
+      }
     })
     class_mob.new(this,args)
   end,
@@ -43,6 +60,7 @@ class_player = class{
   end,
   draw = function(this)
     class_mob.draw(this)
+    this.animator:draw(this.x,this.y)
     if this.on_wall then
       pset(this.x,this.y,8)
     end

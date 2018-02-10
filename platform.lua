@@ -24,13 +24,12 @@ class_platform = class{
       this.height = 8
     end
   end,
-  -- update = function(this)
-  --   -- this.tick += 1
-  --   -- this.x = sin(this.tick/128)*64+32
-  --   -- if this.moves then
-  --   -- end
-  --   class_mob.update(this)
-  -- end,
+  update = function(this)
+    class_mob.update(this)
+    if this.x > 256 or this.x < -256 or this.y > 256 or this.y < -256 then
+      del(_ichor.modules.game.mobs,this)
+    end
+  end,
   collide = function() end,
   draw = function(this)
     local x,y = flr(this.x),flr(this.y)

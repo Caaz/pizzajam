@@ -1,6 +1,7 @@
 -- require class
 -- require mob
-
+local max_movement = 3
+local speed = .6
 class_player = class{
   extends = class_mob,
   new = function(this,args)
@@ -14,17 +15,19 @@ class_player = class{
   update = function(this)
     class_mob.update(this)
     if this.on_floor then
-      if btn(0) then this.vel_x = -2
-      elseif btn(1) then this.vel_x = 2
-      else this.vel_x = 0 end
+      this.vel_x -= this.vel_x/5
       this.on_wall = false
+    else
+      this.vel_x -= this.vel_x/10
     end
+    if btn(0) then this.vel_x = max(this.vel_x-speed,-max_movement)
+    elseif btn(1) then this.vel_x = min(this.vel_x+speed,max_movement) end
     if btnp(2) or btnp(4) then
       if this.on_floor then
         this.vel_y = -5
       elseif this.on_wall then
         this.vel_y = -5
-        this.vel_x = (this.wall_side and -1.5 or 1.5)
+        this.vel_x = (this.wall_side and -4 or 4)
         this.on_wall = false
       end
     end

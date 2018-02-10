@@ -33,10 +33,12 @@ class_mob = class{
   end,
   collide = function(this,that,x,vel)
     if vel != 0 then
-      local a = 'y'
-      local b = 'height'
-      if x then a = 'x' b = 'width' end
-      this[a] = that[a] + (vel < 0 and that[b] or -this[b])
+      this['vel_'..(x and 'x' or 'y')] = 0
+      -- if x then
+      -- local a = 'y'
+      -- local b = 'height'
+      -- if x then a = 'x' b = 'width' end
+      -- this[a] = that[a] + (vel < 0 and that[b] or -this[b])
     end
   end
 }

@@ -10,8 +10,12 @@ class_platform = class{
   update = function(this)
     if this.moves then
       this.tick += 1
-      this.x = sin(this.tick/128)*32+32
+      this.x = sin(this.tick/128)*64+32
     end
     -- class_mob.update(this)
+  end,
+  draw = function(this)
+    local x,y = flr(this.x),flr(this.y)
+    rect(x, y, x + this.width-1, y + this.height-1, (this.clear and 5 or 7))
   end
 }

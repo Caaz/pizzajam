@@ -36,7 +36,6 @@ class_player = class{
       local x_change = this.on.x - this.on_x
       this.vel_x = x_change *1.2
       -- this.vel_x += (x_change > 0 and .01 or -.01)
-      this.on = nil
     else
       this.vel_x = 0
     end
@@ -57,6 +56,9 @@ class_player = class{
         -- this.on_wall = false
       end
     end
+    if btnp(3) and this.on then
+      this.on.clear = true
+    end
     this.vel_y = min(this.vel_y + .5, 5)
     if this.side_force != 0 then
       this.side_force -= this.side_force/6
@@ -64,8 +66,10 @@ class_player = class{
     this.vel_x += this.side_force
     this.on_floor = false
     this.on_wall = false
+    this.on = nil
   end,
   collide = function(this,that,x,vel)
+    if that.clear then return end
     class_mob.collide(this,that,x,vel)
     if x then
       this.on_wall = true

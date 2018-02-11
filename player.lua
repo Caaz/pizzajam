@@ -74,7 +74,7 @@ class_player = class{
       end
     end
     if btnp(3) and this.on then
-      this.on.clear = true
+      this.on.clear = false
     end
     this.vel_y = min(this.vel_y + .5, 5)
     if this.side_force != 0 then

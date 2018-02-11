@@ -4,12 +4,12 @@ __lua__
 
 -- require ichor
 -- require game
-
+-- require particle_system
 
 _ichor
 -- require ichor/stats
 -- require ichor/cls
-.set_order('game',{'cls','game','stats'})
+.set_order('game',{'cls','game','particle_system','stats'})
 .set_state('game')
 __gfx__
 00111100001100011000110000771100001100011000110000000000000000000000000000000000000000000000000000000000000000000000000000000000

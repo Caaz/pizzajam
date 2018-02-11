@@ -42,10 +42,33 @@ class_player = class{
     -- {18,0,6,8,1}
     class_mob.new(this,args)
   end,
+  poof = function(this)
+    for i = 1,15 do
+      _ichor.modules.particle_system:add(class_particle{
+        x = this.x+this.width,
+        y = this.y+this.height,
+        size = 2,
+        vel_y = rnd(2)-1,
+        vel_x = rnd(2)-1,
+      })
+    end
+  end,
+  burst = function(this,right)
+    for i = 1,5 do
+      _ichor.modules.particle_system:add(class_particle{
+        x = this.x+this.width,
+        y = this.y+this.height,
+        size = 2,
+        vel_y = -rnd(1),
+        vel_x = (right and 1 or -1)*rnd(2)
+      })
+    end
+  end,
   update = function(this)
     class_mob.update(this)
     if this.on then
       this.vel_x = this.on.vel_x
+      -- this.vel_y = this.on.vel_y
     else
       this.vel_x = 0
     end
@@ -54,27 +77,32 @@ class_player = class{
     else
     end
     if btn(0) then
+      if not this.moving and this.on then this:burst(true) end
+      this.moving = true
       this.animator:set_animation(2)
       this.vel_x -= max_movement
       this.facing_left = true
     elseif btn(1) then
+      if not this.moving and this.on then this:burst(false) end
+      this.moving = true
       this.animator:set_animation(2)
       this.vel_x += max_movement
       this.facing_left = false
     else
+      this.moving = false
       this.animator:set_animation(1)
     end
     if btnp(2) or btnp(4) then
       if this.on_floor then
         this.vel_y = -5
-      -- elseif max_movement > this.vel_y then
-      --   this.vel_y = 0
+        -- this:poof()
       elseif this.on_wall then
         this.vel_y = -5
         this.side_force = (this.wall_side and -6 or 6)
       elseif this.has_jump then
         this.vel_y = -5
         this.has_jump = false
+        this:poof()
       end
     end
     if btnp(3) and this.on then
@@ -88,13 +116,24 @@ class_player = class{
     this.on_floor = false
     this.on_wall = false
     this.on = nil
-    if this.y > 128 then
+    if this.y > 150 then
       _ichor.set_state('game')
     end
   end,
   collide = function(this,that,x,vel)
     if that.coin then
       local game = _ichor.modules.game
+      for i = 0, 10 do
+        _ichor.modules.particle_system:add(class_particle{
+          x = that.x+that.width/2,
+          y = that.y+that.height/2,
+          size = 4,
+          vel_y = rnd(3)-1.5,
+          vel_x = rnd(3)-1.5,
+          color = rnd()+10,
+          decay = .7,
+        })
+      end
       del(game.mobs,that)
       game.score += 1
       game:add_coin()

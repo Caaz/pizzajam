@@ -88,9 +88,18 @@ class_player = class{
     this.on_floor = false
     this.on_wall = false
     this.on = nil
+    if this.y > 128 then
+      _ichor.set_state('game')
+    end
   end,
   collide = function(this,that,x,vel)
-    if that.clear then return end
+    if that.coin then
+      local game = _ichor.modules.game
+      del(game.mobs,that)
+      game.score += 1
+      game:add_coin()
+      return
+    elseif that.clear then return end
     class_mob.collide(this,that,x,vel)
     if x then
       this.on_wall = true

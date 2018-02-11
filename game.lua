@@ -1,10 +1,12 @@
 -- require player
 -- require platform
+-- require coin
 
 _ichor.add('game', {
   init = function(this)
     -- called when this state begins
     -- this.player = class_player{}
+    this.score = 0
     this.tick = 0
     this.mobs = {
       class_player{x=60,y=58},
@@ -14,6 +16,10 @@ _ichor.add('game', {
     this.mobs[2].x = 40
     this.mobs[2].y = 64
     this.mobs[2].vel_x = 1
+    this:add_coin()
+  end,
+  add_coin = function(this)
+    add(this.mobs, class_coin{})
   end,
   update = function(this)
     this.tick += 1
@@ -59,5 +65,6 @@ _ichor.add('game', {
   draw = function(this)
     -- called every draw when this state is active.
     for mob in all(this.mobs) do mob:draw() end
+    print('score: '..this.score)
   end
 })

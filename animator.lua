@@ -34,6 +34,9 @@ class_animator = class{
     merge(this, args)
   end,
   set_animation = function(this,id)
+    if this.animation != id then
+      this.animations[id]:init()
+    end
     this.animation = id
   end,
   draw = function(this, x, y, width, height, flip_x, flip_y)

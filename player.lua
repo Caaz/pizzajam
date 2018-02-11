@@ -8,45 +8,62 @@ class_player = class{
   extends = class_mob,
   new = function(this,args)
     merge(args,{
-      width = 8,
-      height = 8,
+      width = 6,
+      height = 7,
       vel_y = 2,
       side_force = 0,
       animator = class_animator{
         animations = {
           class_animation{
-            speed = 4,
+            speed = 10,
             frames = {
-              {0,0,8,8},
-              {0,0,8,8},
-              {0,0,8,8},
-              {8,0,6,8,1},
-              {14,0,4,8,2},
-              {18,0,6,8,1}
+              {1,17,6,7},
+              {1,26,6,6,0,1},
+            }
+          },
+          class_animation{
+            speed = 3,
+            frames = {
+              {1,17,6,7},
+              {9,17,6,7},
+              {17,16,6,6,0,-2},
+              {25,17,6,7}
             }
           }
         }
       }
     })
+    -- coin frames
+    -- {0,0,8,8},
+    -- {0,0,8,8},
+    -- {0,0,8,8},
+    -- {8,0,6,8,1},
+    -- {14,0,4,8,2},
+    -- {18,0,6,8,1}
     class_mob.new(this,args)
   end,
   update = function(this)
     class_mob.update(this)
     if this.on then
-      -- local x_change = this.on.x - this.on_x
       this.vel_x = this.on.vel_x
-      -- this.vel_x += (x_change > 0 and .01 or -.01)
     else
       this.vel_x = 0
     end
     if this.on_floor then
-      -- this.vel_x -= this.vel_x/5
       this.on_wall = false
     else
-      -- this.vel_x -= this.vel_x/1.1
     end
-    if btn(0) then this.vel_x -= max_movement
-    elseif btn(1) then this.vel_x += max_movement end
+    if btn(0) then
+      this.animator:set_animation(2)
+      this.vel_x -= max_movement
+      this.facing_left = true
+    elseif btn(1) then
+      this.animator:set_animation(2)
+      this.vel_x += max_movement
+      this.facing_left = false
+    else
+      this.animator:set_animation(1)
+    end
     if btnp(2) or btnp(4) then
       if this.on_floor then
         this.vel_y = -5
@@ -81,8 +98,8 @@ class_player = class{
     end
   end,
   draw = function(this)
-    class_mob.draw(this)
-    this.animator:draw(this.x,this.y)
+    -- class_mob.draw(this)
+    this.animator:draw(this.x,this.y,nil,nil,this.facing_left)
     if this.on_wall then
       pset(this.x,this.y,8)
     end

@@ -67,7 +67,11 @@ class_player = class{
     if btnp(2) or btnp(4) then
       if this.on_floor then
         this.vel_y = -5
-      elseif this.on_wall then
+      elseif max_movement > this.vel_y then
+        this.vel_y = 0
+      else this.vel_y = -5
+      end
+      if this.on_wall then
         this.vel_y = -5
         this.side_force = (this.wall_side and -6 or 6)
         -- this.on_wall = false

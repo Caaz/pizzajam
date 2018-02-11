@@ -14,7 +14,7 @@ class_platform = class{
     local antikey = (v and 'y' or 'x')
     local positive = rnd()>.5
     this['vel_'..key] = (positive and 2 or -2)
-    this[key] = (positive and -64 or 192)
+    this[key] = (positive and -127 or 192)
     this[antikey] = rnd(120)
     if not v then
       this.width = 8
@@ -35,20 +35,13 @@ class_platform = class{
     local x,y = flr(this.x),flr(this.y)
     rect(x, y, x + this.width-1, y + this.height-1, (this.clear and 5 or 7))
 
-    local sprite
-    if this.vel_y > 0 then
-      -- down
-      sprite = 19
-    elseif this.vel_y < 0 then
-      -- up
-      sprite = 18
-    elseif this.vel_x > 0 then
-      -- right
-      sprite = 17
-    else
-      -- left
-      sprite = 16
+    if not this:aabb({x=0,y=0,width=128,height=128}) then
+      local sprite
+      if this.vel_y > 0 then sprite = 19 if this.y > 0 then return end
+      elseif this.vel_y < 0 then sprite = 18 if this.y < 128 then return end
+      elseif this.vel_x > 0 then sprite = 17 if this.x > 0 then return end
+      else sprite = 16 if this.x < 128 then return end end
+      spr(sprite,min(max(this.x,0),120),min(max(this.y,0),120))
     end
-    spr(sprite,min(max(this.x,0),120),min(max(this.y,0),120))
   end
 }

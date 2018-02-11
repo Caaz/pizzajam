@@ -15,7 +15,7 @@ class_platform = class{
     local positive = rnd()>.5
     this['vel_'..key] = (positive and 2 or -2)
     this[key] = (positive and -127 or 192)
-    this[antikey] = rnd(120)
+    this[antikey] = flr(rnd(16))*8
     if not v then
       this.width = 8
       this.height = 64

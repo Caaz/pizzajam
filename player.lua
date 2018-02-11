@@ -66,6 +66,7 @@ class_player = class{
   end,
   update = function(this)
     class_mob.update(this)
+    this.x %= 128
     if this.on then
       this.vel_x = this.on.vel_x
       -- this.vel_y = this.on.vel_y
